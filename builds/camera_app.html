@@ -32,11 +32,13 @@
   -moz-transform:rotateY(180deg);
 	}
 	</style>
+	<script src="../media.js" type="javascript"></script>
+
 </head>
 <body>
 	<div id="video-container" style="position:relative;top:10px;left:10px;">
     <div style="position:relative;background:white;top:0px">
-		<video id="camera-stream" style="max-width:500px;max-height:500px;left:5%;top:40%;position:relative;" controls="true" autoplay> 
+		<video id="camera-stream" style="max-width:500px;max-height:500px;left:5%;top:40%;position:relative;" controls="true" autoplay>
     </video></div>
 		<button id="click" style="background-color:chartreuse;border-bottom-right-radius:40%;border-top-left-radius:40%;left:44%;position:relative;cursor:pointer;padding:5px 15px 5px 15px;">Click</button>
     <div style="width:100%;position:relative;top:30px;background-color:white;">
@@ -46,58 +48,6 @@
   <br/>
   <a href="#" download id="img-download">Download Image</a>
 	</div>
-		<script type="text/javascript">
-  // Normalize the various vendor prefixed versions of getUserMedia.
-  	 var v= document.querySelector('video');
-     var canvas = document.querySelector('canvas');
-     var ctx = canvas.getContext('2d');
-     var MediaStream = null;
-     var cw = Math.floor(canvas.clientWidth );
-     var ch = Math.floor(canvas.clientHeight*2 );
-    canvas.width = cw;
-    canvas.height = ch;
-     var button=document.getElementById('img-download');
-  navigator.getUserMedia = navigator.getUserMedia ||
-                            navigator.webkitGetUserMedia ||
-                            navigator.mozGetUserMedia || 
-                            navigator.msGetUserMedia ;
 
-if (navigator.getUserMedia) {
-  // Request the camera.
-  navigator.getUserMedia(
-    // Constraints
-    {
-      video: true
-    },
-
-    // Success Callback
-    function(localMediaStream) {
-    	var vid = document.getElementById('camera-stream');
-		// Create an object URL for the video stream and use this 
-		// to set the video source.
-		vid.src = window.URL.createObjectURL(localMediaStream);
-		MediaStream=localMediaStream;
-    },
-
-    // Error Callback
-    function(err) {
-      // Log the error to the console.
-      console.log('The following error occurred when trying to use getUserMedia: ' + err);
-    }
-  );
-  document.getElementById('click').addEventListener('click',function(){
-  	if(MediaStream){
-            ctx.drawImage(v,0,0);
-          	document.querySelector('img').src = canvas.toDataURL('image/webp');
-          }
-  });
-  button.addEventListener('click',function(e){
-  	var dataURL= canvas.toDataURL('image/png');
-  	button.href=dataURL;
-  });
-} else {
-  alert('Sorry, your browser does not support getUserMedia');
-}
-	</script>
 </body>
 </html>
