@@ -1,4 +1,5 @@
 // Normalize the various vendor prefixed versions of getUserMedia.
+console.log('hi');
  var v= document.querySelector('video');
  var canvas = document.querySelector('canvas');
  var ctx = canvas.getContext('2d');
